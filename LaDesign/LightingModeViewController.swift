@@ -53,15 +53,13 @@ class LightingModeViewController: UIViewController, CBCentralManagerDelegate,CBP
         var R: CGFloat = 0, G: CGFloat = 0, B: CGFloat = 0, a: CGFloat = 0
         selectingColor.getRed(&R, green: &G, blue: &B, alpha: &a)
         
-        let RGBString = String("RGB")?.data(using: String.Encoding.utf8)
-        _peripheral?.writeValue(RGBString!, for: _characteristics!, type: CBCharacteristicWriteType.withoutResponse)
-        let Red = String(Int(R*225))
+        let Red = String(Int(R*225)) + ";"
         let Rdata = Red.data(using: String.Encoding.utf8)
         _peripheral?.writeValue(Rdata!, for: _characteristics!, type: CBCharacteristicWriteType.withoutResponse)
-        let Green = String(Int(G*225))
+        let Green = String(Int(G*225)) + ";"
         let Gdata = Green.data(using: String.Encoding.utf8)
         _peripheral?.writeValue(Gdata!, for: _characteristics!, type: CBCharacteristicWriteType.withoutResponse)
-        let Blue = String(Int(B*225))
+        let Blue = String(Int(B*225)) + ";." // ';' is RGB seperator  '.' is string end
         let Bdata = Blue.data(using: String.Encoding.utf8)
         _peripheral?.writeValue(Bdata!, for: _characteristics!, type: CBCharacteristicWriteType.withoutResponse)
         print("red:\(Red), green:\(Green), blue:\(Blue)")
@@ -123,32 +121,33 @@ class LightingModeViewController: UIViewController, CBCentralManagerDelegate,CBP
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let firstTouch = touches.first?.location(in: self.view)
         
-        let ModeString = String("Mode").data(using: String.Encoding.utf8)
-        _peripheral?.writeValue(ModeString!, for: _characteristics!, type: CBCharacteristicWriteType.withoutResponse)
-        
         if GotFireView.frame.contains(firstTouch!){
-            let string = "M1"
+
+            let string = "M1."
             let data = string.data(using: String.Encoding.utf8)
             _peripheral?.writeValue(data!, for: _characteristics!, type: CBCharacteristicWriteType.withoutResponse)
             print("M1")
         }
         
         if RandomView.frame.contains(firstTouch!){
-            let string = "M2"
+
+            let string = "M2."
             let data = string.data(using: String.Encoding.utf8)
             _peripheral?.writeValue(data!, for: _characteristics!, type: CBCharacteristicWriteType.withoutResponse)
             print("M2")
         }
         
         if RelaxView.frame.contains(firstTouch!){
-            let string = "M3"
+
+            let string = "M3."
             let data = string.data(using: String.Encoding.utf8)
             _peripheral?.writeValue(data!, for: _characteristics!, type: CBCharacteristicWriteType.withoutResponse)
             print("M3")
         }
         
         if BreathView.frame.contains(firstTouch!){
-            let string = "M4"
+
+            let string = "M4."
             let data = string.data(using: String.Encoding.utf8)
             _peripheral?.writeValue(data!, for: _characteristics!, type: CBCharacteristicWriteType.withoutResponse)
             print("M4")
