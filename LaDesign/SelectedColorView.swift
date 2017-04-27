@@ -28,13 +28,5 @@ class SelectedColorView: UIView {
     func setBackgroundColor() {
         backgroundColor = color
     }
-    
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let selectColorNotification = Notification(name: Notification.Name("colorSelecting"), object: color, userInfo: nil)
-        NotificationCenter.default.post(selectColorNotification)
-        
-    }
-    
 
 }
