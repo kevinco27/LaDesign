@@ -36,8 +36,8 @@ class ControlModeViewController: UIViewController {
         
         //初始化溫度
         caseTemp = 30
-        heatingRate = 0.15
-        coolingRate = 0.1
+        heatingRate = 0.2
+        coolingRate = 0.3
         
     }
     
@@ -86,39 +86,39 @@ class ControlModeViewController: UIViewController {
         
         //溫度上升率
         if(Int(CPUTemp) == 50){
-            heatingRate = 0.15
+            heatingRate = 0.2
         }else if(Int(CPUTemp) == 60){
-            heatingRate = 0.25
+            heatingRate = 0.7
         }
         
         //溫度下降率
         switch modeState {
         case "S":
-            coolingRate = 0.1
+            coolingRate = 0.25
             break
         case "Q":
-            coolingRate = 0.16
+            coolingRate = 0.5
             break
         case "P":
-            coolingRate = 0.35
+            coolingRate = 1.2
             break
         default:
             break
         }
         
         //溫度到上限後不再上升
-        if caseTemp>Float((Int(CPUTemp)-20+7)) && heatingRate - 0.15 < 0.000001{
+        if caseTemp>Float((Int(CPUTemp)-20+7)) && heatingRate - 0.2 < 0.000001{
             heatingRate = 0.0
-        }else if caseTemp>(Float(Int(CPUTemp)-20+13)) && heatingRate - 0.25 < 0.000001{
+        }else if caseTemp>(Float(Int(CPUTemp)-20+13)) && heatingRate - 0.7 < 0.000001{
             heatingRate = 0.0
         }
         
         //溫度到下限不在下降
-        if caseTemp<Float((Int(CPUTemp)-20-4)) && coolingRate - 0.1 < 0.000001{
+        if caseTemp<Float((Int(CPUTemp)-20-4)) && coolingRate - 0.25 < 0.000001{
             coolingRate = 0.0
-        }else if caseTemp<Float((Int(CPUTemp)-20-7)) && coolingRate - 0.16 < 0.000001{
+        }else if caseTemp<Float((Int(CPUTemp)-20-7)) && coolingRate - 0.5 < 0.000001{
             coolingRate = 0.0
-        }else if caseTemp<Float((Int(CPUTemp)-20-10)) && coolingRate - 0.35 < 0.000001{
+        }else if caseTemp<Float((Int(CPUTemp)-20-10)) && coolingRate - 1.2 < 0.000001{
             coolingRate = 0.0
         }
         
